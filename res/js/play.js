@@ -16,12 +16,10 @@ playState = {
         this.game.physics.enable(this.player2, Phaser.Physics.ARCADE);
 
         //Enables/Disables ARCADE Physics features like gravity, acceleration, etc.
-        this.player1.body.acceleration = true;
         this.player1.body.allowGravity = false;
         this.player1.body.immovable = true;
         this.player1.body.collideWorldBounds = true;
 
-        this.player2.body.acceleration = true;
         this.player2.body.allowGravity = false;
         this.player2.body.immovable = true;
         this.player2.body.collideWorldBounds = true;
@@ -35,29 +33,39 @@ playState = {
             Phaser.Keyboard.SPACEBAR]);
 
         //Player Acceleration when it moves
-        this.playerAcceleration = 5;
-        this.playerSpeed = 250;
+        this.playerAcceleration = 300;
+        this.maxSpeed = 400;
+        this.playerDrag = 150;
+
+        this.player1.body.maxVelocity.setTo(this.maxSpeed, this.maxSpeed);
+        this.player2.body.maxVelocity.setTo(this.maxSpeed, this.maxSpeed);
+        this.player1.body.drag.setTo(this.playerDrag, this.playerDrag);
+        this.player2.body.drag.setTo(this.playerDrag, this.playerDrag);
 
     },
     update:function() {
-        this.player1.body.maxVelocity.setTo(this.playerSpeed, this.playerSpeed);
-        this.player2.body.maxVelocity.setTo(this.playerSpeed, this.playerSpeed);
-
         //Player 1 movement
-        if (this.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            this.player1.body.y -= this.playerAcceleration;
+        if (this.input.keyboard.isDown(Phaser.Keyboard.W)) {
+            this.player1.body.acceleration.y = -this.playerAcceleration;
 
-        } else if (this.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            this.player1.body.y += this.playerAcceleration;
+        } else if (this.input.keyboard.isDown(Phaser.Keyboard.S)) {
+            this.player1.body.acceleration.y = this.playerAcceleration;
+
+        } else { 
+            this.player1.body.acceleration.y = 0;
 
         };
 
         //Player 2 movement
-        if (this.input.keyboard.isDown(Phaser.Keyboard.W)) {
-            this.player2.body.y -= this.playerAcceleration;
+        if (this.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+            this.player2.body.acceleration.y = -this.playerAcceleration;
 
-        } else if (this.input.keyboard.isDown(Phaser.Keyboard.S)) {
-            this.player2.body.y += this.playerAcceleration;
+        } else if (this.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+            this.player2.body.acceleration.y = this.playerAcceleration;
+
+        } else { 
+            this.player2.body.acceleration.y = 0;
+
         };
     
     }
