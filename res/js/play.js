@@ -113,7 +113,7 @@ playState = {
         var ballVel = 250;
 
         ball.body.velocity.x = ballVel;
-        ball.body.velocity.y = Math.floor(Math.random() * 250);
+        ball.body.velocity.y = Math.floor((Math.random() * 350) - 100);
 
     },
 
