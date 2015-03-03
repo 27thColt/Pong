@@ -39,17 +39,10 @@ playState = {
             Phaser.Keyboard.SPACEBAR]);
 
         //Player Acceleration when it moves
-        this.playerAcceleration = 300;
-        this.maxSpeed = 400;
-        this.playerDrag = 150;
-
-        this.player1.body.maxVelocity.setTo(this.maxSpeed, this.maxSpeed);
-        this.player2.body.maxVelocity.setTo(this.maxSpeed, this.maxSpeed);
+        this.playerAcceleration = 450;
 
         //Will spawn a ball after everything is done being created
         this.spawnBall();
-
-
     },
     update:function() {
         //collision
