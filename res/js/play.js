@@ -58,14 +58,17 @@ playState = {
 
         this.keyPress();
 
+        //Updates the scores and ball position when it reaches one player's side
         if (ball.body.x >= this.game.width - ball.body.width) {
             console.log("Player 1 Point!");
             scorePlayer1 += 1;
             this.spawnAgain();
+            document.getElementById("p1score").innerHTML = scorePlayer1;
         } else if (ball.body.x <= 0) {
             console.log("Player 2 Point!");
             scorePlayer2 += 1;
             this.spawnAgain();
+            document.getElementById("p2score").innerHTML = scorePlayer2;
         };
     
     },
@@ -110,11 +113,14 @@ playState = {
         var ballVel = 250;
 
         ball.body.velocity.x = ballVel;
+        ball.body.velocity.y = Math.floor(Math.random() * 250);
 
     },
 
     spawnAgain:function() {
         ball.body.x = this.game.width * 0.5;
+        ball.body.y = this.game.height * 0.5;
+        ball.body.velocity.y = Math.floor(Math.random() * 250);
 
     }
 

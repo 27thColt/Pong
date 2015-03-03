@@ -1,17 +1,38 @@
 body {
-    color: #83e692;
+    color: #FFFFFF;
     background-color: #000000;
     text-align: center;
-    font-family: "trebuchet ms";
+    font-family:"trebuchet ms";
 }
 
 #game {
     height:700px;
 	width:1000px;
 	margin:0 auto;
-    background-color: #292a29;
+    background-color:#292a29;
+    border:20px solid #FFFFFF;
 }
 
 #warning {
     font-size: 11px;
+}
+
+a {
+    text-decoration:none;
+    font-weight:bold;
+    color:#FFFFFF;
+}
+
+#p1score {
+    display:inline-block;
+    margin-right:350px;
+    font-size:30px;
+
+}
+
+#p2score {
+    display:inline-block;
+    margin-left:350px;
+    font-size:30px;
+
 }
