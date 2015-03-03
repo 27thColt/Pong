@@ -102,7 +102,7 @@ playState = {
 
     //Spawns a ball to the screen
     spawnBall:function() {
-        ball = this.ballGroup.create(this.game.width * 0.5, Math.floor(Math.random() * 700, "ball");
+        ball = this.ballGroup.create(this.game.width * 0.5, Math.floor(Math.random() * 700), "ball");
         this.game.physics.enable(ball, Phaser.Physics.ARCADE);
 
         ball.body.bounce.set(1);
