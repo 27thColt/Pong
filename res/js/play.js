@@ -102,7 +102,7 @@ playState = {
 
     //Spawns a ball to the screen
     spawnBall:function() {
-        ball = this.ballGroup.create(this.game.width * 0.5, this.game.height * 0.5, "ball");
+        ball = this.ballGroup.create(this.game.width * 0.5, Math.floor(Math.random() * 700, "ball");
         this.game.physics.enable(ball, Phaser.Physics.ARCADE);
 
         ball.body.bounce.set(1);
@@ -110,7 +110,7 @@ playState = {
         ball.body.immovable = false;
         ball.body.collideWorldBounds = true;
 
-        var ballVel = 250;
+        var ballVel = 400;
 
         ball.body.velocity.x = ballVel;
         ball.body.velocity.y = Math.floor((Math.random() * 350) - 100);
@@ -119,7 +119,7 @@ playState = {
 
     spawnAgain:function() {
         ball.body.x = this.game.width * 0.5;
-        ball.body.y = this.game.height * 0.5;
+        ball.body.y = Math.floor(Math.random() * 700);
         ball.body.velocity.y = Math.floor(Math.random() * 250);
 
     }
