@@ -2,14 +2,20 @@ playState = {
     preload:function() {
         game.load.image("player1", "assets/img/player1.png");
         game.load.image("player2", "assets/img/player2.png");
-        
+        game.load.image("ball", "assets/img/ball.png");
         
     },
     
     create:function() {
+        //score of the players
+        scorePlayer1 = 0;
+        scorePlayer2 = 0;
 
-        this.player1 = game.add.sprite(this.game.width - this.game.width + 5, this.game.height * 0.5, "player1");
-        this.player2 = game.add.sprite(this.game.width - 40, this.game.height * 0.5 , "player2");
+
+        this.player1 = game.add.sprite(this.game.width - this.game.width + 5, this.game.height * 0.5 - 17, "player1");
+        this.player2 = game.add.sprite(this.game.width - 40, this.game.height * 0.5 - 17, "player2");
+        this.ballGroup = this.game.add.group();
+
 
         //Enabling ARCADE physics on boths players
         this.game.physics.enable(this.player1, Phaser.Physics.ARCADE);
@@ -39,35 +45,77 @@ playState = {
 
         this.player1.body.maxVelocity.setTo(this.maxSpeed, this.maxSpeed);
         this.player2.body.maxVelocity.setTo(this.maxSpeed, this.maxSpeed);
-        this.player1.body.drag.setTo(this.playerDrag, this.playerDrag);
-        this.player2.body.drag.setTo(this.playerDrag, this.playerDrag);
+
+        //Will spawn a ball after everything is done being created
+        this.spawnBall();
+
 
     },
     update:function() {
+        //collision
+        this.game.physics.arcade.collide(this.player1, ball);
+        this.game.physics.arcade.collide(this.player2, ball);
+
+        this.keyPress();
+
+        if (ball.body.x >= this.game.width - ball.body.width) {
+            console.log("Player 1 Point!");
+            scorePlayer1 += 1;
+            this.spawnAgain();
+        } else if (ball.body.x <= 0) {
+            console.log("Player 2 Point!");
+            scorePlayer2 += 1;
+            this.spawnAgain();
+        };
+    
+    },
+
+    keyPress:function() {
         //Player 1 movement
         if (this.input.keyboard.isDown(Phaser.Keyboard.W)) {
-            this.player1.body.acceleration.y = -this.playerAcceleration;
+            this.player1.body.velocity.y = -this.playerAcceleration;
 
         } else if (this.input.keyboard.isDown(Phaser.Keyboard.S)) {
-            this.player1.body.acceleration.y = this.playerAcceleration;
+            this.player1.body.velocity.y = this.playerAcceleration;
 
         } else { 
-            this.player1.body.acceleration.y = 0;
+            this.player1.body.velocity.y = 0;
 
         };
 
         //Player 2 movement
         if (this.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-            this.player2.body.acceleration.y = -this.playerAcceleration;
+            this.player2.body.velocity.y = -this.playerAcceleration;
 
         } else if (this.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-            this.player2.body.acceleration.y = this.playerAcceleration;
+            this.player2.body.velocity.y = this.playerAcceleration;
 
         } else { 
-            this.player2.body.acceleration.y = 0;
+            this.player2.body.velocity.y = 0;
 
         };
-    
+
+    },
+
+    //Spawns a ball to the screen
+    spawnBall:function() {
+        ball = this.ballGroup.create(this.game.width * 0.5, this.game.height * 0.5, "ball");
+        this.game.physics.enable(ball, Phaser.Physics.ARCADE);
+
+        ball.body.bounce.set(1);
+        ball.body.allowGravity = false;
+        ball.body.immovable = false;
+        ball.body.collideWorldBounds = true;
+
+        var ballVel = 250;
+
+        ball.body.velocity.x = ballVel;
+
+    },
+
+    spawnAgain:function() {
+        ball.body.x = this.game.width * 0.5;
+
     }
 
 };
