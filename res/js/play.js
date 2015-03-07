@@ -39,7 +39,7 @@ playState = {
             Phaser.Keyboard.SPACEBAR]);
 
         //Player Acceleration when it moves
-        this.playerAcceleration = 450;
+        this.playerAcceleration = 500;
 
         //Will spawn a ball after everything is done being created
         this.spawnBall();
@@ -62,6 +62,21 @@ playState = {
             scorePlayer2 += 1;
             this.spawnAgain();
             document.getElementById("p2score").innerHTML = scorePlayer2;
+        };
+
+        //Updates if one player hits the ball
+        if (ball.body.touching.right == true && this.player2.body.touching.left == true) {
+            console.log("Player 2 hits!");
+            if (ball.body.velocity.y >= 0 && ball.body.velocity.y <= 100) {
+                ball.body.velocity.y += 200;
+            };
+
+
+        } else if (ball.body.touching.left == true && this.player1.body.touching.right == true) {
+            console.log("Player 1 hits!");
+            if (ball.body.velocity.y >= -100 && ball.body.velocity.y <= 100) {
+                ball.body.velocity.y += 200;
+            };
         };
     
     },
@@ -103,7 +118,7 @@ playState = {
         ball.body.immovable = false;
         ball.body.collideWorldBounds = true;
 
-        var ballVel = 400;
+        ballVel = 600;
 
         ball.body.velocity.x = ballVel;
         ball.body.velocity.y = Math.floor((Math.random() * 350) - 100);
